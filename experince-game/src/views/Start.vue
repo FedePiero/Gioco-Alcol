@@ -1,32 +1,58 @@
 <template>
-  <el-row :gutter="100">
-    <el-col
-      :xs="24"
-      :sm="24"
-      :md="24"
-      :lg="24"
-      :xl="24"
-      style="position: absolute; top: 2%; text-align: center"
-    >
-      <div>
-        <h2>Giocatori</h2>
+  <el-row>
+    <el-col :span="6" class="center">
+      <el-button circle @click="$router.push('/')">
+        <el-icon style="vertical-align: middle">
+          <ArrowLeftBold />
+        </el-icon>
+      </el-button>
+    </el-col>
+    <el-col :span="12">
+      <div style="text-align: center">
+        <h2>SET UP</h2>
+        <hr />
       </div>
     </el-col>
-    <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-      <h4>Numero di giocatori: {{ players.length }}</h4>
-      <el-button circle @click="setLessNPlayers()"> - </el-button>
-      <el-button circle @click="setMoreNPlayers()"> + </el-button>
+    <el-col :span="6" class="center">
+      <el-button type="primary" circle :disabled="listNotEmpty" @click="startGame()">
+        <el-icon style="vertical-align: middle">
+          <ArrowRightBold />
+        </el-icon>
+      </el-button>
     </el-col>
-    <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
+    <el-col :span="24">
+      <el-row>
+        <el-col :span="16">
+          <h4>Numero di giocatori: {{ players.length }}</h4>
+        </el-col>
+        <el-col :span="4" class="center">
+          <el-button type="danger" circle @click="setLessNPlayers()">
+            <el-icon style="vertical-align: middle">
+              <Minus />
+            </el-icon>
+          </el-button>
+        </el-col>
+        <el-col :span="4" class="center">
+          <el-button type="success" circle @click="setMoreNPlayers()">
+            <el-icon style="vertical-align: middle">
+              <Plus />
+            </el-icon>
+          </el-button>
+        </el-col>
+      </el-row>
+    </el-col>
+    <el-col :span="24" class="center">
       <div v-for="item in players">
         <el-row>
-          <el-col :span="20">
+          <el-col :span="20" class="center">
             <el-input v-model="item.name" placeholder="Nome" clearable />
           </el-col>
-          <el-col :span="4">
-            <div class="imageDiv">
-                <el-image :src="item.icon" fit="fill"/>
-            </div>
+          <el-col :span="4" class="center">
+            <el-image
+              :src="item.icon"
+              fit="fill"
+              style="border: 2px black solid"
+            />
           </el-col>
         </el-row>
       </div>
@@ -34,7 +60,6 @@
   </el-row>
 </template>
 <script lang="js">
-import { fill } from 'lodash'
 
 export default {
   data() {
@@ -62,6 +87,15 @@ export default {
             name: '',
             icon: this.listIcon[this.players.length]
         }
+    },
+    listNotEmpty(){
+      let result = false
+      this.players.forEach(element => {
+        if(element.name === ''){
+          result = true
+        }
+      });
+      return result
     }
   },
   created() {
@@ -78,13 +112,18 @@ export default {
             this.players.push(this.getTemp)
           }
       },
+      startGame(){
+        localStorage.setItem("resumeGame", JSON.stringify(this.players))
+        this.$router.push('Game')
+      },
   }
 }
 </script>
 <style scoped>
-.imageDiv{
-    width: 10px; 
-    height: 10px;
-    border: 2px black solid;
+.center {
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+  text-align: center;
 }
 </style>
