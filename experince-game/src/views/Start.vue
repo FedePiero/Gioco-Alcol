@@ -18,16 +18,15 @@
       <el-button circle @click="setMoreNPlayers()"> + </el-button>
     </el-col>
     <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-      <div v-for="(item, index) in players">
+      <div v-for="item in players">
         <el-row>
-          <el-col :span="4">
-            <h4>{{ index }} -</h4>
-          </el-col>
-          <el-col :span="15">
+          <el-col :span="20">
             <el-input v-model="item.name" placeholder="Nome" clearable />
           </el-col>
-          <el-col :span="5">
-            <el-image style="width: 100px; height: 100px" :src="item.icon"/>
+          <el-col :span="4">
+            <div class="imageDiv">
+                <el-image :src="item.icon" fit="fill"/>
+            </div>
           </el-col>
         </el-row>
       </div>
@@ -35,24 +34,26 @@
   </el-row>
 </template>
 <script lang="js">
+import { fill } from 'lodash'
+
 export default {
   data() {
     return {
       players: [],
       listIcon: [
-        "../assets/drinks/drink1.jpeg",
-        "../assets/drinks/drink2.jpeg",
-        "../assets/drinks/drink3.jpeg",
-        "../assets/drinks/drink4.jpeg",
-        "../assets/drinks/drink5.jpeg",
-        "../assets/drinks/drink6.jpeg",
-        "../assets/drinks/drink7.jpeg",
-        "../assets/drinks/drink8.jpeg",
-        "../assets/drinks/drink9.jpeg",
-        "../assets/drinks/drink10.jpeg",
-        "../assets/drinks/drink11.jpeg",
-        "../assets/drinks/drink12.jpeg",
-      ]
+        '../../public/drinks/drink1.jpeg',
+        '../../public/drinks/drink2.jpeg',
+        '../../public/drinks/drink3.jpeg',
+        '../../public/drinks/drink4.jpeg',
+        '../../public/drinks/drink5.jpeg',
+        '../../public/drinks/drink6.jpeg',
+        '../../public/drinks/drink7.jpeg',
+        '../../public/drinks/drink8.jpeg',
+        '../../public/drinks/drink9.jpeg',
+        '../../public/drinks/drink10.jpeg',
+        '../../public/drinks/drink11.jpeg',
+        '../../public/drinks/drink12.jpeg',
+      ],
     }
   },
   computed:{
@@ -73,7 +74,6 @@ export default {
           }
       },
       setMoreNPlayers(){
-        console.log(this.players)
           if(this.players.length!=12){
             this.players.push(this.getTemp)
           }
@@ -81,4 +81,10 @@ export default {
   }
 }
 </script>
-<style scoped></style>
+<style scoped>
+.imageDiv{
+    width: 10px; 
+    height: 10px;
+    border: 2px black solid;
+}
+</style>
