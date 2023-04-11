@@ -78,32 +78,47 @@
 </template>
 
 <script lang="js">
-  export default {
-    data() {
-      return {
-      }
-    },
-    created() {
-    },
-    methods: {
-        rollDice() {
-            const dice = [...document.querySelectorAll(".die-list")];
-            dice.forEach(die => {
-                this.toggleClasses(die);
-                die.dataset.roll = this.getRandomNumber(1, 6);
-            });
-        },
-        toggleClasses(die) {
-            die.classList.toggle("odd-roll");
-            die.classList.toggle("even-roll");
-        },
-        getRandomNumber(min, max) {
-            min = Math.ceil(min);
-            max = Math.floor(max);
-            return Math.floor(Math.random() * (max - min + 1)) + min;
-        },
+export default {
+  data() {
+    return {
+      resultRandom: 0,
+      canShot: true,
     }
+  },
+  created() {
+  },
+  methods: {
+      rollDice() {
+          if(!this.canShot){
+              return;
+          }
+          this.canShot = false
+          const dice = [...document.querySelectorAll(".die-list")];
+          let temp = 0;
+          this.resultRandom = 0;
+          dice.forEach(die => {
+              this.toggleClasses(die);
+              temp = this.getRandomNumber(1, 6);
+              die.dataset.roll = temp
+              this.resultRandom = this.resultRandom + temp;
+          });
+          setTimeout(()=>this.enableRollAgain(), 2500);
+      },
+      enableRollAgain(){
+        this.canShot = true
+        this.$emit('diceResult',this.resultRandom)
+      },
+      toggleClasses(die) {
+          die.classList.toggle("odd-roll");
+          die.classList.toggle("even-roll");
+      },
+      getRandomNumber(min, max) {
+          min = Math.ceil(min);
+          max = Math.floor(max);
+          return Math.floor(Math.random() * (max - min + 1)) + min;
+      },
   }
+}
 </script>
 <style scoped>
 .dice {

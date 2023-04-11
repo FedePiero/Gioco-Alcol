@@ -20,8 +20,8 @@
         </el-icon>
       </el-button>
     </el-col>
-    <el-col :span="24" class="center">
-        <Dice />
+    <el-col :span="24" class="center" v-if="enableDice">
+      <Dice @diceResult="(i) => diceResult.push(i)" />
     </el-col>
   </el-row>
 </template>
@@ -31,12 +31,25 @@ import Dice from '../components/Dice.vue';
 
 export default {
     data() {
-        return {};
+        return {
+            diceResult: [],
+            numberOfShot: 3,
+        };
+    },
+    computed: {
+        enableDice(){
+            if(this.diceResult.length == this.numberOfShot){
+                return false;
+            }else{
+                return true;
+            }
+        }
     },
     created() {
-        console.log(localStorage.getItem("resumeGame"));
     },
-    methods: {},
+    methods: {
+
+    },
     components: { Dice }
 }
 </script>
