@@ -74,6 +74,11 @@
         </ol>
       </div>
     </el-col>
+    <el-col :span="24">
+        <div class="textResultDices" v-if="firstShot">
+            <h2 style="color: #fefefe;">Risultato : {{ resultRandom }}</h2>
+        </div>
+    </el-col>
   </el-row>
 </template>
 
@@ -83,6 +88,7 @@ export default {
     return {
       resultRandom: 0,
       canShot: true,
+      firstShot: false,
     }
   },
   created() {
@@ -107,6 +113,7 @@ export default {
       enableRollAgain(){
         this.canShot = true
         this.$emit('diceResult',this.resultRandom)
+        this.firstShot = true
       },
       toggleClasses(die) {
           die.classList.toggle("odd-roll");
@@ -305,5 +312,15 @@ button {
   .dice {
     perspective: 1300px;
   }
+}
+.textResultDices{
+  position: fixed;
+  border-radius: 25px;
+  background: #d25b11;
+  bottom: 20%;
+  width: 80%;
+  height: 10%;
+  margin: auto;
+  text-align: center;
 }
 </style>
