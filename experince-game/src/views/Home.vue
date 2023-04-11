@@ -19,8 +19,7 @@ export default {
   },
   methods: {
     getResumeGame(){
-      console.log(app.config.globalProperties.$resumeGame)
-        return app.config.globalProperties.$resumeGame == null
+      return localStorage.getItem("resumeGame") == null
     }
   }
 }
