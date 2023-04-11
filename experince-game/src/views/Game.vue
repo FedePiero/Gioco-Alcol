@@ -20,20 +20,24 @@
         </el-icon>
       </el-button>
     </el-col>
+    <el-col :span="24" class="center">
+        <Dice />
+    </el-col>
   </el-row>
 </template>
 
 <script lang="js">
+import Dice from '../components/Dice.vue';
+
 export default {
-  data() {
-    return {
-    }
-  },
-  created() {
-    console.log(localStorage.getItem("resumeGame") )
-  },
-  methods: {
-  }
+    data() {
+        return {};
+    },
+    created() {
+        console.log(localStorage.getItem("resumeGame"));
+    },
+    methods: {},
+    components: { Dice }
 }
 </script>
 <style scoped>

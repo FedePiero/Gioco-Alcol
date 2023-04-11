@@ -4,7 +4,7 @@
       <el-button round @click="$router.push('Start')">Nuovo Gioco</el-button>
     </el-col>
     <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
-      <el-button round :disabled="getResumeGame()">Riprendi Partita</el-button>
+      <el-button round  @click="$router.push('Game')" :disabled="getResumeGame()">Riprendi Partita</el-button>
     </el-col>
   </el-row>
 </template>
